@@ -17,7 +17,7 @@ class App extends Component {
   render() {
     return (
       <section className="hero is-medium is-primary">
-        <div className="hero-head">
+        {/* <div className="hero-head">
           <nav className="navbar">
             <div className="container">
               <div className="navbar-brand">
@@ -67,27 +67,25 @@ class App extends Component {
               </div>
             </div>
           </nav>
-        </div>
-        <div className="hero-title">
+        </div> */}
+        {/* <div className="hero-title">
           <div className="content">
             <div className="level">
               <div className="level-item">
                 <h2 className="subtitle">search and save your favorite gifs</h2>
               </div>
             </div>
-          </div>
-          {/* {this.auth.isLoggedIn() && (
+          </div> */}
+        {/* {this.auth.isLoggedIn() && (
             <button onClick={() => this.handleLogout()}>Logout</button>
           )} */}
-        </div>
-        <div className="hero-body has-background-light">
-          <Router>
-            {/* <SearchPage path="/search" /> */}
-            <LoginPage path="/login" />
-            {/* <RegisterPage path="/register" /> */}
-            <HomePage path="/" />
-          </Router>
-        </div>
+        {/* </div> */}
+        <Router>
+          {/* <SearchPage path="/search" /> */}
+          <LoginPage path="/login" />
+          {/* <RegisterPage path="/register" /> */}
+          <HomePage path="/" />
+        </Router>
       </section>
     );
   }
