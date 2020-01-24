@@ -1,0 +1,50 @@
+{
+  "name": "gif-library-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write \"src/**/*.{js,html,css}\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel src/index.html --port 3000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@reach/router": "^1.2.1",
+    "axios": "^0.19.2",
+    "bulma": "^0.8.0",
+    "constants": "0.0.2",
+    "gifs": "0.0.8",
+    "home": "^2.0.0",
+    "index": "^0.4.0",
+    "jwt-decode": "^2.2.0",
+    "login": "^0.8.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "register": "0.0.0",
+    "search": "^1.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-react": "^7.8.3",
+    "node-sass": "^4.13.1",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^1.19.1"
+  },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 ChromeAndroid versions",
+    "last 2 Firefox versions",
+    "last 2 FirefoxAndroid versions",
+    "last 2 Safari versions",
+    "last 2 iOS versions",
+    "last 2 Edge versions",
+    "last 2 Opera versions",
+    "last 2 OperaMobile versions"
+  ]
+}
