@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { navigate } from "@reach/router";
 import { Gif } from "../gifs/Gif";
 import { Nav } from "../nav/Nav";
 import { Auth } from "../util/Auth";
+import { TagSelect } from "./TagSelect";
 import { USER_URL } from "../constants";
 
 class HomePage extends Component {
@@ -11,7 +11,8 @@ class HomePage extends Component {
     super(props);
     this.state = {
       gifs: [],
-      isEdit: false
+      isEdit: false,
+      displayGifs: []
     };
   }
 
@@ -26,12 +27,11 @@ class HomePage extends Component {
       const response = await this.auth.request(USER_URL, params, headers);
 
       this.setState({
-        gifs: response.gifs || []
+        gifs: response.gifs || [],
+        displayGifs: response.gifs || []
       });
     } catch (err) {
       console.log(err);
-      navigate("/login");
-      return;
     }
   }
 
@@ -43,7 +43,7 @@ class HomePage extends Component {
 
   handleChange = event => {
     const gifs = this.state.gifs.map(gif => {
-      return event.target.name === gif.id
+      return event.target.name === gif.gif_id
         ? {
             ...gif,
             category: event.target.value
@@ -55,24 +55,37 @@ class HomePage extends Component {
     });
   };
 
-  handleSave = async () => {
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`
+  handlSelect = event => {
+    if (event.target.value === "all") {
+      this.setState({
+        displayGifs: this.state.gifs
+      });
+      return;
+    }
+    this.setState({
+      displayGifs: this.state.gifs.filter(
+        ({ category }) => category === event.target.value
+      )
     });
+  };
 
+  handleSave = async () => {
     try {
-      const response = await fetch(USER_URL, {
-        headers,
-        method: "PUT",
-        body: JSON.stringify({ gifs: this.state.gifs })
+      const headers = new Headers({
+        "Content-Type": "application/json"
       });
 
-      const responseJson = await response.json();
+      const params = {
+        method: "PUT",
+        body: JSON.stringify({ gifs: this.state.gifs })
+      };
+
+      const response = await this.auth.request(USER_URL, params, headers);
 
       this.setState({
         isEdit: false,
-        gifs: responseJson.gifs
+        gifs: response.gifs,
+        displayGifs: response.gifs
       });
     } catch (err) {
       console.log(err);
@@ -85,9 +98,20 @@ class HomePage extends Component {
         <Nav />
         <div className="hero-body has-background-light">
           <div className="container">
-            <h3 className="title has-text-dark">
-              Home {this.state.gifs.length === 0 && "- search to add more gifs"}
-            </h3>
+            <div className="columns">
+              <div className="column">
+                <h3 className="title has-text-dark">
+                  Home{" "}
+                  {this.state.gifs.length === 0 && "- search to add more gifs"}
+                </h3>
+              </div>
+              <div className="column tag-select">
+                <TagSelect
+                  gifs={this.state.gifs}
+                  handleSelect={this.handlSelect}
+                />
+              </div>
+            </div>
             <div className="content">
               {/* If there are gifs either show the edit or save button depending
           on state  */}
@@ -109,7 +133,7 @@ class HomePage extends Component {
                 ))}
             </div>
             <div id="gifList" className="columns">
-              {this.state.gifs.map(gif => (
+              {this.state.displayGifs.map(gif => (
                 <div
                   key={gif.gif_id}
                   className="column is-one-quarter gif-label"
@@ -122,7 +146,7 @@ class HomePage extends Component {
                       <input
                         className="input"
                         type="text"
-                        name={gif.id}
+                        name={gif.gif_id}
                         maxLength="15"
                         onChange={this.handleChange}
                       />
