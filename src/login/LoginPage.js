@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { navigate } from "@reach/router";
 import { Auth } from "../util/Auth";
+import { Nav } from "../nav/Nav";
 
 class LoginPage extends Component {
   auth = new Auth();
@@ -41,47 +42,52 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div className="container auth-container">
-        <div className="columns is-centered is-vcentered">
-          <div className="column has-text-centered">
-            <h3 className="title has-text-dark">Login</h3>
-            <form onSubmit={this.handleSubmit}>
-              <div className="input-container">
-                <input
-                  className="input"
-                  type="email"
-                  placeholder="enter your email"
-                  name="email"
-                  onChange={this.handleChange}
-                  value={this.state.email}
-                  required
-                />
+      <>
+        <Nav location={this.props.location.pathname} />
+        <div className="hero-body has-background-light">
+          <div>
+            <div className="columns is-centered is-vcentered">
+              <div className="column has-text-centered is-3">
+                <h3 className="title has-text-dark">Login</h3>
+                <form onSubmit={this.handleSubmit}>
+                  <div className="input-container">
+                    <input
+                      className="input"
+                      type="email"
+                      placeholder="enter your email"
+                      name="email"
+                      onChange={this.handleChange}
+                      value={this.state.email}
+                      required
+                    />
+                  </div>
+                  <div className="input-container">
+                    <input
+                      className="input"
+                      type="password"
+                      placeholder="enter a password"
+                      name="password"
+                      onChange={this.handleChange}
+                      onKeyDown={this.keyPress}
+                      value={this.state.password}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <button
+                      className="button is-primary"
+                      type="button"
+                      onClick={this.handleClick}
+                    >
+                      Go!
+                    </button>
+                  </div>
+                </form>
               </div>
-              <div className="input-container">
-                <input
-                  className="input"
-                  type="password"
-                  placeholder="enter a password"
-                  name="password"
-                  onChange={this.handleChange}
-                  onKeyDown={this.keyPress}
-                  value={this.state.password}
-                  required
-                />
-              </div>
-              <div>
-                <button
-                  className="button is-primary"
-                  type="button"
-                  onClick={this.handleClick}
-                >
-                  Go!
-                </button>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }
