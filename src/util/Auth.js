@@ -95,6 +95,7 @@ class Auth {
     });
 
     if (REDIRECT_ERROR_CODES.includes(response.status)) {
+      navigate("/login");
       throw new Error("Authorization error");
     }
 
