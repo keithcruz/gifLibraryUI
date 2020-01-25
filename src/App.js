@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { Router, Link } from "@reach/router";
+import { Router } from "@reach/router";
 // import { SearchPage } from "search/SearchPage";
 import { LoginPage } from "./login/LoginPage";
 // import { RegisterPage } from "register/RegisterPage";

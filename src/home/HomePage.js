@@ -95,7 +95,7 @@ class HomePage extends Component {
   render() {
     return (
       <>
-        <Nav />
+        <Nav location={this.props.location.pathname} />
         <div className="hero-body has-background-light">
           <div className="container">
             <div className="columns">
