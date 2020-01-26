@@ -104,14 +104,14 @@ class Auth {
     return responseJson;
   };
 
-  gifSearch = async query => {
+  gifSearch = async (query, offset) => {
     const csrfToken = this.getCsrfToken();
     const headers = new Headers({
       "Content-Type": "application/json",
       "X-CSRF-TOKEN": csrfToken
     });
 
-    const response = await fetch(`${GIFS_URL}?q=${query}`, {
+    const response = await fetch(`${GIFS_URL}?q=${query}&offset=${offset}`, {
       method: "GET",
       credentials: "include",
       headers

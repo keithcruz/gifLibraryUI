@@ -4,7 +4,7 @@ import { Gif } from "../gifs/Gif";
 import { SearchBar } from "./SearchBar";
 import { Auth } from "../util/Auth";
 import { Nav } from "../nav/Nav";
-import { USER_URL } from "../constants";
+import { USER_URL, OFFSET } from "../constants";
 
 class SearchPage extends Component {
   auth = new Auth();
@@ -13,7 +13,10 @@ class SearchPage extends Component {
     super(props);
     this.state = {
       gifs: [],
-      userGifs: []
+      userGifs: [],
+      query: "",
+      total: 0,
+      offset: 0
     };
   }
 
@@ -89,6 +92,56 @@ class SearchPage extends Component {
     }
   };
 
+  updateQueryMeta = async (query, total) => {
+    this.setState({
+      query: query,
+      total: total,
+      offset: 0
+    });
+  };
+
+  canDecrement = () => this.state.offset >= OFFSET;
+
+  canIncrement = () => this.state.offset + OFFSET < this.state.total;
+
+  handlePagination = async direction => {
+    let currentOffset = this.state.offset;
+    if (direction === "previous") {
+      if (this.canDecrement()) {
+        currentOffset -= 12;
+      } else {
+        return;
+      }
+    } else if (direction === "next") {
+      if (this.canIncrement()) {
+        currentOffset += 12;
+      } else {
+        return;
+      }
+    }
+
+    try {
+      const results = await this.auth.gifSearch(
+        this.state.query,
+        currentOffset
+      );
+
+      this.updateList(
+        results.data.map(element => {
+          const formElement = { ...element, checked: false };
+          return formElement;
+        })
+      );
+
+      this.setState({
+        text: "",
+        offset: currentOffset
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   render() {
     return (
       <>
@@ -96,7 +149,10 @@ class SearchPage extends Component {
         <div className="has-background-light search-body">
           <div className="columns is-centered is-vcentered">
             <div className="column has-text-centered is-3">
-              <SearchBar onSubmit={this.updateList} />
+              <SearchBar
+                onSubmit={this.updateList}
+                update={this.updateQueryMeta}
+              />
             </div>
           </div>
 
@@ -140,11 +196,18 @@ class SearchPage extends Component {
                     <a
                       className="pagination-previous"
                       title="This is the first page"
-                      disabled
+                      onClick={event => this.handlePagination("previous")}
+                      disabled={!this.canDecrement()}
                     >
                       Previous
                     </a>
-                    <a className="pagination-next">Next page</a>
+                    <a
+                      className="pagination-next"
+                      onClick={event => this.handlePagination("next")}
+                      disabled={!this.canIncrement()}
+                    >
+                      Next page
+                    </a>
                   </nav>
                 </div>
               </div>
