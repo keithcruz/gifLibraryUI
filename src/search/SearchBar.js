@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Auth } from "../util/Auth";
-import { GIFS_URL } from "../constants";
 
 class SearchBar extends Component {
   auth = new Auth();
@@ -12,11 +11,10 @@ class SearchBar extends Component {
   }
 
   search = async () => {
-    console.log("called");
     try {
       const query = encodeURI(this.state.text);
 
-      const results = await this.auth.gifSearch(query);
+      const results = await this.auth.gifSearch(query, 0);
 
       this.props.onSubmit(
         results.data.map(element => {
@@ -24,6 +22,8 @@ class SearchBar extends Component {
           return formElement;
         })
       );
+
+      this.props.update(query, results.pagination.total_count);
       this.setState({ text: "" });
     } catch (err) {
       console.log(err);
