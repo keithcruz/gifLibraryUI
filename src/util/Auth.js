@@ -1,4 +1,3 @@
-import jwt_decode from "jwt-decode";
 import { navigate } from "@reach/router";
 import { LOGIN_URL, REDIRECT_ERROR_CODES, GIFS_URL } from "../constants";
 
@@ -29,42 +28,6 @@ class Auth {
       console.log(err);
       return err;
     }
-  };
-
-  setToken = token => {
-    localStorage.setItem("token", token);
-  };
-
-  getToken = () => {
-    return localStorage.getItem("token");
-  };
-
-  tokenExpired = token => {
-    try {
-      const decoded = jwt_decode(token);
-      const expiration = decoded.exp;
-      return expiration < Date.now() / 1000;
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  isLoggedIn = () => {
-    const token = this.getToken();
-    if (token) {
-      return !this.tokenExpired(token);
-    }
-
-    return false;
-  };
-
-  logout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
-
-  getUserInfo = () => {
-    return jwt_decode(this.getToken()).identity;
   };
 
   getCsrfToken = () => {

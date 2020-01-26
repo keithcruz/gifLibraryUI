@@ -63,6 +63,8 @@ const Nav = ({ location }) => {
                     <a
                       className="button is-white is-outlined"
                       href="https://github.com/keithcruz/gifLibraryUI"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       View Source
                     </a>
@@ -81,9 +83,6 @@ const Nav = ({ location }) => {
             </div>
           </div>
         </div>
-        {/* {this.auth.isLoggedIn() && (
-      <button onClick={() => this.handleLogout()}>Logout</button>
-    )} */}
       </div>
     </>
   );
