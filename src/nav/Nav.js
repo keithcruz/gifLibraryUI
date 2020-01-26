@@ -1,9 +1,21 @@
 import React from "react";
-import { Link } from "@reach/router";
-import { LOGIN_PATHS } from "../constants";
+import { Link, navigate } from "@reach/router";
+import { LOGIN_PATHS, LOGOUT_URL } from "../constants";
 
 const Nav = ({ location }) => {
   const isLogin = LOGIN_PATHS.includes(location);
+
+  const handleClick = async event => {
+    event.preventDefault();
+    try {
+      await fetch(LOGOUT_URL, {
+        method: "POST"
+      });
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -35,11 +47,14 @@ const Nav = ({ location }) => {
                       </>
                     ) : (
                       <>
-                        <li className="is-active">
+                        <li>
                           <Link to="/">Home</Link>
                         </li>
                         <li>
                           <Link to="/search">Search</Link>
+                        </li>
+                        <li>
+                          <a onClick={handleClick}>Logout</a>
                         </li>
                       </>
                     )}
