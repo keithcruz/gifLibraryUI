@@ -1,4 +1,4 @@
-const GIFS_URL = "/api/gifs";
+const GIFS_URL = "/api/gifs/search";
 
 const USER_URL = "/api/users";
 
