@@ -19,7 +19,7 @@ class Auth {
         })
       });
 
-      if (REDIRECT_ERROR_CODES.includes(response.status)) {
+      if ([404, ...REDIRECT_ERROR_CODES].includes(response.status)) {
         throw new Error("Authorization error");
       }
 
