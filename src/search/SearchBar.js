@@ -38,7 +38,6 @@ class SearchBar extends Component {
 
   keyPress = event => {
     if (event.keyCode === 13) {
-      console.log("hello");
       event.preventDefault();
 
       this.search();
