@@ -43,7 +43,7 @@ class HomePage extends Component {
 
   handleChange = event => {
     const gifs = this.state.gifs.map(gif => {
-      return event.target.name === gif.gif_id
+      return event.target.name === gif.id
         ? {
             ...gif,
             category: event.target.value
@@ -134,10 +134,7 @@ class HomePage extends Component {
             </div>
             <div id="gifList" className="columns">
               {this.state.displayGifs.map(gif => (
-                <div
-                  key={gif.gif_id}
-                  className="column is-one-quarter gif-label"
-                >
+                <div key={gif.id} className="column is-one-quarter gif-label">
                   <div>
                     <Gif gif={gif.url} />
                   </div>
@@ -146,7 +143,7 @@ class HomePage extends Component {
                       <input
                         className="input"
                         type="text"
-                        name={gif.gif_id}
+                        name={gif.id}
                         maxLength="15"
                         onChange={this.handleChange}
                       />

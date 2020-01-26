@@ -1,6 +1,6 @@
 import jwt_decode from "jwt-decode";
 import { navigate } from "@reach/router";
-import { LOGIN_URL, REDIRECT_ERROR_CODES } from "../constants";
+import { LOGIN_URL, REDIRECT_ERROR_CODES, GIFS_URL } from "../constants";
 
 class Auth {
   login = async (email, password) => {
@@ -90,6 +90,29 @@ class Auth {
 
     const response = await fetch(url, {
       ...params,
+      credentials: "include",
+      headers
+    });
+
+    if (REDIRECT_ERROR_CODES.includes(response.status)) {
+      navigate("/login");
+      throw new Error("Authorization error");
+    }
+
+    const responseJson = await response.json();
+
+    return responseJson;
+  };
+
+  gifSearch = async query => {
+    const csrfToken = this.getCsrfToken();
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      "X-CSRF-TOKEN": csrfToken
+    });
+
+    const response = await fetch(`${GIFS_URL}?q=${query}`, {
+      method: "GET",
       credentials: "include",
       headers
     });
