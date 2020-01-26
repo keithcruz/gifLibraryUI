@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { navigate } from "@reach/router";
 import { Auth } from "../util/Auth";
 import { Nav } from "../nav/Nav";
 
@@ -33,12 +32,6 @@ class LoginPage extends Component {
 
     this.auth.login(this.state.email, this.state.password);
   };
-
-  componentDidMount() {
-    if (this.auth.isLoggedIn()) {
-      navigate("/");
-    }
-  }
 
   render() {
     return (

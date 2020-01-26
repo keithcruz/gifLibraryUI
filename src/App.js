@@ -10,10 +10,6 @@ import { Auth } from "./util/Auth";
 class App extends Component {
   auth = new Auth();
 
-  handleLogout = () => {
-    this.auth.logout();
-  };
-
   render() {
     return (
       <section className="hero is-medium is-primary">
