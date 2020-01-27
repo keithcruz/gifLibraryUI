@@ -16,6 +16,7 @@ class HomePage extends Component {
     };
   }
 
+  // Get user data on mount
   async componentDidMount() {
     try {
       const headers = new Headers({
@@ -41,6 +42,7 @@ class HomePage extends Component {
     });
   };
 
+  // Update the tag of the current gif
   handleChange = event => {
     const gifs = this.state.gifs.map(gif => {
       return event.target.name === gif.id
@@ -55,6 +57,7 @@ class HomePage extends Component {
     });
   };
 
+  // Filter gifs based on selected value
   handlSelect = event => {
     if (event.target.value === "all") {
       this.setState({

@@ -18,7 +18,7 @@ class Auth {
         })
       });
 
-      if ([404, ...REDIRECT_ERROR_CODES].includes(response.status)) {
+      if (REDIRECT_ERROR_CODES.includes(response.status)) {
         throw new Error("Authorization error");
       }
 
@@ -37,8 +37,8 @@ class Auth {
 
     const foundCookies = document.cookie
       .split(";")
-      .map(c => c.trim())
-      .filter(c => c.startsWith("csrf_access_token="));
+      .map(cookie => cookie.trim())
+      .filter(cookie => cookie.startsWith("csrf_access_token="));
 
     if (foundCookies.length === 0) {
       return null;
@@ -69,6 +69,7 @@ class Auth {
 
   gifSearch = async (query, offset) => {
     const csrfToken = this.getCsrfToken();
+
     const headers = new Headers({
       "Content-Type": "application/json",
       "X-CSRF-TOKEN": csrfToken
