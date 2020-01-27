@@ -11,11 +11,15 @@ const TagSelect = ({ gifs, handleSelect }) => {
     <div>
       <div className="select is-primary">
         <select onChange={handleSelect}>
-          {filters.map(filter => (
-            <option value={filter} key={filter}>
-              {filter}
-            </option>
-          ))}
+          {filters.map(filter => {
+            if (filter.length) {
+              return (
+                <option value={filter} key={filter}>
+                  {filter}
+                </option>
+              );
+            }
+          })}
         </select>
       </div>
     </div>
