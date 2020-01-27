@@ -135,7 +135,7 @@ class HomePage extends Component {
                   </button>
                 ))}
             </div>
-            <div id="gifList" className="columns">
+            <div id="gifList" className="columns is-multiline">
               {this.state.displayGifs.map(gif => (
                 <div key={gif.id} className="column is-one-quarter gif-label">
                   <div>
