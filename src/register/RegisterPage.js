@@ -15,6 +15,7 @@ class RegisterPage extends Component {
     };
   }
 
+  // Used to update input fields
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -40,7 +41,7 @@ class RegisterPage extends Component {
           })
         });
 
-        if ([409, 422, ...REDIRECT_ERROR_CODES].includes(response.status)) {
+        if (REDIRECT_ERROR_CODES.includes(response.status)) {
           throw new Error("Registration error");
         }
 

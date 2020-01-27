@@ -13,6 +13,7 @@ class LoginPage extends Component {
     };
   }
 
+  // Used to update input fields
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value

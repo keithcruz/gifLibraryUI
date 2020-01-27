@@ -39,7 +39,7 @@ const Nav = ({ location }) => {
                     {isLogin ? (
                       <>
                         <li>
-                          <Link to="/register">Register</Link>{" "}
+                          <Link to="/register">Register</Link>
                         </li>
                         <li>
                           <Link to="/login">Login</Link>

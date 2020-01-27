@@ -37,10 +37,22 @@ class SearchPage extends Component {
     }
   }
 
+  // Callback to pass to searchbar that will update the list of gifs.
   updateList = data => {
     this.setState({ gifs: data });
   };
 
+  // Callback to pass to searchbar to update information related to the current
+  // search.
+  updateQueryMeta = async (query, total) => {
+    this.setState({
+      query: query,
+      total: total,
+      offset: 0
+    });
+  };
+
+  // Callback passed to checkboxes that updates the state of the checked gifs
   handleChange = currentGif => {
     const index = this.state.gifs.findIndex(gif => gif.id === currentGif.id);
     const gifs = this.state.gifs.slice();
@@ -55,6 +67,7 @@ class SearchPage extends Component {
     });
   };
 
+  // Get the checked gifs and attempt to update the users gifs.
   handleClick = async event => {
     event.preventDefault();
     let userGifs = this.state.userGifs.slice();
@@ -90,14 +103,6 @@ class SearchPage extends Component {
     } catch (err) {
       console.log(err);
     }
-  };
-
-  updateQueryMeta = async (query, total) => {
-    this.setState({
-      query: query,
-      total: total,
-      offset: 0
-    });
   };
 
   canDecrement = () => this.state.offset >= OFFSET;
