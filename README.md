@@ -14,4 +14,4 @@ To run use:
 - Better error handling for error messages
 - Complete unit testing
 - Improve the css, especially on the gifs and checkbox inputs
-- Add linting along with jsx-a11y and react-a11y for accessiblity
+- Removal of Gifs from personal list
